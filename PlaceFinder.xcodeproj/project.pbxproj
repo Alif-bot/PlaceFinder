@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C37BF99A2D5DC16D0035A8EF /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = C37BF9992D5DC16D0035A8EF /* GoogleMaps */; };
+		C37BFA5F2D5E09ED0035A8EF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C37BFA5E2D5E09ED0035A8EF /* Alamofire */; };
+		C37BFA622D5E0A720035A8EF /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = C37BFA612D5E0A720035A8EF /* GoogleMaps */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C37BF99A2D5DC16D0035A8EF /* GoogleMaps in Frameworks */,
+				C37BFA622D5E0A720035A8EF /* GoogleMaps in Frameworks */,
+				C37BFA5F2D5E09ED0035A8EF /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +85,8 @@
 			);
 			name = PlaceFinder;
 			packageProductDependencies = (
-				C37BF9992D5DC16D0035A8EF /* GoogleMaps */,
+				C37BFA5E2D5E09ED0035A8EF /* Alamofire */,
+				C37BFA612D5E0A720035A8EF /* GoogleMaps */,
 			);
 			productName = PlaceFinder;
 			productReference = C31FEE102D5DBD2A00CB9708 /* PlaceFinder.app */;
@@ -114,7 +117,8 @@
 			mainGroup = C31FEE072D5DBD2A00CB9708;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				C37BF9982D5DC16D0035A8EF /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
+				C37BFA5D2D5E09ED0035A8EF /* XCRemoteSwiftPackageReference "Alamofire" */,
+				C37BFA602D5E0A720035A8EF /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C31FEE112D5DBD2A00CB9708 /* Products */;
@@ -371,7 +375,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C37BF9982D5DC16D0035A8EF /* XCRemoteSwiftPackageReference "ios-maps-sdk" */ = {
+		C37BFA5D2D5E09ED0035A8EF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		C37BFA602D5E0A720035A8EF /* XCRemoteSwiftPackageReference "ios-maps-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googlemaps/ios-maps-sdk.git";
 			requirement = {
@@ -382,9 +394,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C37BF9992D5DC16D0035A8EF /* GoogleMaps */ = {
+		C37BFA5E2D5E09ED0035A8EF /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C37BF9982D5DC16D0035A8EF /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
+			package = C37BFA5D2D5E09ED0035A8EF /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		C37BFA612D5E0A720035A8EF /* GoogleMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C37BFA602D5E0A720035A8EF /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
 			productName = GoogleMaps;
 		};
 /* End XCSwiftPackageProductDependency section */
