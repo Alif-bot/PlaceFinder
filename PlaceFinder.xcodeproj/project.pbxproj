@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C37BF99A2D5DC16D0035A8EF /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = C37BF9992D5DC16D0035A8EF /* GoogleMaps */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		C31FEE102D5DBD2A00CB9708 /* PlaceFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaceFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C37BF99A2D5DC16D0035A8EF /* GoogleMaps in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = PlaceFinder;
 			packageProductDependencies = (
+				C37BF9992D5DC16D0035A8EF /* GoogleMaps */,
 			);
 			productName = PlaceFinder;
 			productReference = C31FEE102D5DBD2A00CB9708 /* PlaceFinder.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = C31FEE072D5DBD2A00CB9708;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C37BF9982D5DC16D0035A8EF /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C31FEE112D5DBD2A00CB9708 /* Products */;
 			projectDirPath = "";
@@ -339,6 +348,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C37BF9982D5DC16D0035A8EF /* XCRemoteSwiftPackageReference "ios-maps-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googlemaps/ios-maps-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C37BF9992D5DC16D0035A8EF /* GoogleMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C37BF9982D5DC16D0035A8EF /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
+			productName = GoogleMaps;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C31FEE082D5DBD2A00CB9708 /* Project object */;
 }
