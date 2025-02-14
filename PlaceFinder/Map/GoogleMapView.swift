@@ -7,58 +7,59 @@
 
 import SwiftUI
 import GoogleMaps
-import Alamofire
 
 struct GoogleMapView: UIViewRepresentable {
     @ObservedObject var locationManager: LocationManager
+    @State private var hasSetInitialLocation = false
     @Binding var selectedLocation: CLLocationCoordinate2D?
+    var polylinePoints: String?
 
     let mapView = GMSMapView()
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator()
+    }
 
     func makeUIView(context: Context) -> GMSMapView {
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
+        mapView.settings.scrollGestures = true
+        mapView.settings.zoomGestures = true
+        mapView.settings.tiltGestures = true
+        mapView.settings.rotateGestures = true
+
         return mapView
     }
 
     func updateUIView(_ uiView: GMSMapView, context: Context) {
-        if let userLocation = locationManager.userLocation {
-            let camera = GMSCameraPosition.camera(withLatitude: userLocation.latitude, longitude: userLocation.longitude, zoom: 15)
+        // Move to user's current location when first available
+        if let userLocation = locationManager.userLocation, !hasSetInitialLocation {
+            let camera = GMSCameraPosition.camera(
+                withLatitude: userLocation.latitude,
+                longitude: userLocation.longitude,
+                zoom: 15
+            )
             uiView.animate(to: camera)
+            context.coordinator.hasSetInitialLocation = true // Prevent re-centering on every update
         }
-
-        if let place = selectedLocation {
-            let marker = GMSMarker(position: place)
-            marker.title = "Selected Place"
+        // Move to searched location when selected
+        if let searchedLocation = selectedLocation {
+            let camera = GMSCameraPosition.camera(
+                withLatitude: searchedLocation.latitude,
+                longitude: searchedLocation.longitude,
+                zoom: 15
+            )
+            uiView.animate(to: camera)
+            
+            // Add marker for searched location
+            let marker = GMSMarker(position: searchedLocation)
+            marker.title = "Searched Location"
             marker.map = uiView
-
-            let camera = GMSCameraPosition.camera(withLatitude: place.latitude, longitude: place.longitude, zoom: 15)
-            uiView.animate(to: camera)
-
-            // Fetch and draw route
-            if let userLocation = locationManager.userLocation {
-                getRoute(from: userLocation, to: place, mapView: uiView)
-            }
         }
-    }
-
-    func getRoute(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D, mapView: GMSMapView) {
-        let apiKey = "YOUR_GOOGLE_MAPS_API_KEY"
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(start.latitude),\(start.longitude)&destination=\(end.latitude),\(end.longitude)&mode=driving&key=\(apiKey)"
-
-        AF.request(url).responseJSON { response in
-            guard let data = response.data else { return }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                if let routes = json?["routes"] as? [[String: Any]], let route = routes.first {
-                    if let overviewPolyline = route["overview_polyline"] as? [String: Any],
-                       let points = overviewPolyline["points"] as? String {
-                        self.drawPath(from: points, mapView: mapView)
-                    }
-                }
-            } catch {
-                print("Error parsing route JSON: \(error)")
-            }
+        
+        // Draw route if polyline points exist
+        if let polylinePoints = polylinePoints {
+            drawPath(from: polylinePoints, mapView: uiView)
         }
     }
 
@@ -68,5 +69,10 @@ struct GoogleMapView: UIViewRepresentable {
         polyline.strokeWidth = 5.0
         polyline.strokeColor = .blue
         polyline.map = mapView
+    }
+    
+    //Use Coordinator to store state safely
+    class Coordinator {
+        var hasSetInitialLocation = false
     }
 }
